@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Story Creator</title>
+	<style>
+		textarea {
+			display: block;
+			width: 800px;
+			margin: 0 auto;
+			height: 300px;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<textarea id="log"></textarea>
+	<script src="js/ssc.js"></script>
+	<script>
+		var MyStory = new TSimpleStoryCreator();
+		var MyLog = document.getElementById("log");
+
+		var RealStory = MyStory.GetStoryText();
+		MyLog.value = "";
+		for ( var lIndex = 0; lIndex < RealStory.length; lIndex++ ) {
+			MyLog.value += RealStory[ lIndex ] + "\n";
+		}
+
+	</script>
+</body>
+</html>
