@@ -307,31 +307,33 @@ function TSimpleStoryCreator() {
 	//              be called by using the GetStoryText-routine
 	this.NewStory = function () {
 		// General information about the story
-		var lPlotMode       = rRandom( 1, rPlotList.length ) - 1;
-		var lIntroID        = rRandom( 1, rIntroList.length ) - 1;
-		var lSubIntro       = rRandom( 1, 99 );
-		var lPlotEndMode    = rPlotEndList[ rRandom( 1, rPlotEndList.length ) - 1 ];
-		var lHeroID         = rRandom( 1, rHeroList.length ) - 1;
-		var lVillainID      = rRandom( 1, rVillainList.length ) - 1;
+		var lPlotMode               = rPlotList[ rRandom( 1, rPlotList.length ) - 1 ];
+		var lIntro                  = rIntroList[ rRandom( 1, rIntroList.length ) - 1 ];
+		var lSubIntro               = rRandom( 1, 99 );
+		var lPlotEndMode            = rPlotEndList[ rRandom( 1, rPlotEndList.length ) - 1 ];
+		var lHeroID                 = rRandom( 1, rHeroList.length ) - 1;
+		var lVillainID              = rRandom( 1, rVillainList.length ) - 1;
 
-		var lKillWay        = rRandom( 1, rKillList.length ) - 1; // Plot-End: kill
-		var lFlee           = rFleeList[ rRandom( 1, rFleeList.length ) - 1 ]; // Plot-End: flee
-		var lDayMode        = rRandom( 1, rOneDayList.length ) - 1;
-		var lFinal          = rFinalMoment[ rRandom( 1, rFinalMoment.length ) - 1 ];
+		var lKill                   = rKillList[ rRandom( 1, rKillList.length ) - 1 ]; // Plot-End: kill
+		var lFlee                   = rFleeList[ rRandom( 1, rFleeList.length ) - 1 ]; // Plot-End: flee
+		var lDayMode                = rRandom( 1, rOneDayList.length ) - 1;
+		var lFinal                  = rFinalMoment[ rRandom( 1, rFinalMoment.length ) - 1 ];
 
-		var lKidnapWay      = rRandom( 1, rKidnapList.length ) - 1;  // Plot: Kidnap
-		var lDestroyWay     = rRandom( 1, rDestroyList.length ) - 1; // Plot: Destroy
-		var lWitchWay       = rRandom( 1, rWitchList.length ) - 1;   // Plot: Witch
-		var lWitchEnd       = rWitchEndList[ rRandom( 1, rWitchEndList.length ) - 1 ];
+		var lKidnapWay              = rRandom( 1, rKidnapList.length ) - 1;  // Plot: Kidnap
+		var lDestroyWay             = rRandom( 1, rDestroyList.length ) - 1; // Plot: Destroy
+		var lWitchWay               = rRandom( 1, rWitchList.length ) - 1;   // Plot: Witch
+		var lWitchEnd               = rWitchEndList[ rRandom( 1, rWitchEndList.length ) - 1 ];
 
-		var lObjectID       = rRandom( 1, rDestroyObjectList.length ) - 1; // Plot: Destroy
-		var lRelativeID     = rRandom( 1, rRelativeList.length ) - 1;      // Plot: Destroy (Substory)
+		var lObjectID               = rRandom( 1, rDestroyObjectList.length ) - 1; // Plot: Destroy
+		var lRelativeID             = rRandom( 1, rRelativeList.length ) - 1;      // Plot: Destroy (Substory)
 
-		var lHeroGender     = rHeroList[lHeroID].Gender;
-		var lHeroName       = rHeroList[lHeroID].Name;
-		var lHeroArticle    = rHeroList[lHeroID].Article;
-		var lHeroMainAdjective = rHeroMainAdjectiveList[ rRandom( 1, rHeroMainAdjectiveList.length ) - 1 ];
-		var lCheatWord         = rCheatList[ rRandom( 1, rCheatList.length ) - 1 ];
+		var lHeroGender             = rHeroList[lHeroID].Gender;
+		var lHeroName               = rHeroList[lHeroID].Name;
+		var lHeroArticle            = rHeroList[lHeroID].Article;
+		var lHeroMainAdjective      = rHeroMainAdjectiveList[ rRandom( 1, rHeroMainAdjectiveList.length ) - 1 ];
+		var lHeroSecondaryAdjective;
+		var lHeroSecondary          = rHeroSecondaryAdjectiveList[ rRandom( 1, rHeroSecondaryAdjectiveList.length ) - 1 ];
+		var lCheatWord              = rCheatList[ rRandom( 1, rCheatList.length ) - 1 ];
 		
 		var lVillainName    = rVillainList[lHeroID].Name;
 		var lVillainArticle = rVillainList[lHeroID].Article;
@@ -339,20 +341,27 @@ function TSimpleStoryCreator() {
 		switch ( lHeroGender ) {
 			case "both":
 				lHeroGender = "He";
-				if ( rRandom( 1, 100 ) > 50 ) lHeroGender = "She";
+				lHeroSecondaryAdjective = lHeroSecondary.Male;
+				if ( rRandom( 1, 100 ) > 50 ) {
+					lHeroGender = "She";
+					lHeroSecondaryAdjective = lHeroSecondary.Female;
+				}
 				break;
 			case "female":
 				lHeroGender = "She";
+				lHeroSecondaryAdjective = lHeroSecondary.Female;
 				break;
 			case "male":
 				lHeroGender = "He";
+				lHeroSecondaryAdjective = lHeroSecondary.Male;
 				break;
 		}
+
 
 		// Preparing the story and the plot
 		rStory = [];
 		lPlot = [];
-		switch (rPlotList[lPlotMode]) {
+		switch ( lPlotMode ) {
 			case "destroy":
 				lPlot.push( "destroy" );
 				if (rRandom(1, 100) >= 50) {
@@ -377,9 +386,9 @@ function TSimpleStoryCreator() {
 			
 
 		// Adding the intro
-		var lPlotLine = sprintf("%s there lived %s %s.", rIntroList[ lIntroID ], lHeroArticle, lHeroName);
-
-		if ( lSubIntro > 33  ) lPlotLine = sprintf("%s there was %s %s %s.", rIntroList[ lIntroID ], lHeroArticle, lHeroMainAdjective, lHeroName );
+		var lPlotLine = sprintf("%s there lived %s %s.", lIntro, lHeroArticle, lHeroName);
+		if ( lSubIntro > 33  ) lPlotLine = sprintf("%s there was %s %s %s.", lIntro, lHeroArticle, lHeroMainAdjective, lHeroName );
+		if ( lSubIntro > 66  ) lPlotLine = sprintf("%s there was %s %s who was %s.", lIntro, lHeroArticle, lHeroName, lHeroSecondaryAdjective );
 		rStory.push( lPlotLine ); 
 
 		for (var lIndex = 0; lIndex < lPlot.length; lIndex++) {
@@ -395,7 +404,7 @@ function TSimpleStoryCreator() {
 
 				case "destroy":
 					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, rDestroyList[ lDestroyWay ], rDestroyObjectList[ lObjectID ], lHeroName );
-					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, rKillList[ lKillWay ], rRelativeList[ lRelativeID ], lHeroName );
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
 					rStory.push( lPlotLine ); 
 					console.log( "Destroy active" );
 					break;
@@ -429,6 +438,9 @@ function TSimpleStoryCreator() {
 					break;
 
 				case "kill":
+					var lPlotLine = sprintf("%s %s %s the %s.", lFinal, lHeroGender.toLowerCase(), lKill, lVillainName );
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
+					rStory.push( lPlotLine ); 
 					console.log( "Kill active" );
 					break;
 			};
