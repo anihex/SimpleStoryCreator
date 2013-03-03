@@ -45,7 +45,8 @@ function TSimpleStoryCreator() {
 	var rPlotList = [
 		"destroy",
 		"kidnap",
-		"witch"
+		"witch",
+		"revenge"
 	];
 
 	// List of story intros
@@ -305,7 +306,7 @@ function TSimpleStoryCreator() {
 	//              Uses a random hero and a random villain for this.
 	//              The story is stored in the private variable rStory and can
 	//              be called by using the GetStoryText-routine
-	this.NewStory = function () {
+	this.NewStory = function ( aStoryMode ) {
 		// General information about the story
 		var lPlotMode               = rPlotList[ rRandom( 1, rPlotList.length ) - 1 ];
 		var lIntro                  = rIntroList[ rRandom( 1, rIntroList.length ) - 1 ];
@@ -325,7 +326,7 @@ function TSimpleStoryCreator() {
 		var lWitchEnd               = rWitchEndList[ rRandom( 1, rWitchEndList.length ) - 1 ];
 
 		var lObjectID               = rRandom( 1, rDestroyObjectList.length ) - 1; // Plot: Destroy
-		var lRelativeID             = rRandom( 1, rRelativeList.length ) - 1;      // Plot: Destroy (Substory)
+		var lRelativeID             = rRandom( 1, rRelativeList.length ) - 1;      // Plot: Revenge
 
 		var lHeroGender             = rHeroList[lHeroID].Gender;
 		var lHeroName               = rHeroList[lHeroID].Name;
@@ -337,6 +338,15 @@ function TSimpleStoryCreator() {
 		
 		var lVillainName    = rVillainList[lHeroID].Name;
 		var lVillainArticle = rVillainList[lHeroID].Article;
+
+		if ( aStoryMode == "destroy" ) lPlotMode = "destroy";
+		if ( aStoryMode == "kidnap" ) lPlotMode = "kidnap";
+		if ( aStoryMode == "mindcontrol" ) lPlotMode = "witch";
+		if ( aStoryMode == "revenge" ) lPlotMode = "revenge";
+
+		console.log( aStoryMode );
+		console.log( this.NewStory.arguments );
+
 
 		switch ( lHeroGender ) {
 			case "both":
@@ -381,6 +391,13 @@ function TSimpleStoryCreator() {
 				lPlot.push("cheat");
 				lPlot.push("entwitch");
 				break;
+
+			case "revenge":
+				lPlot.push( "revenge" );
+				if (rRandom(1, 100) >= 50) {
+					lPlot.push("cheat");
+				}
+				break;
 		}
 		lPlot.push( lPlotEndMode );
 			
@@ -404,9 +421,14 @@ function TSimpleStoryCreator() {
 
 				case "destroy":
 					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, rDestroyList[ lDestroyWay ], rDestroyObjectList[ lObjectID ], lHeroName );
-					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
 					rStory.push( lPlotLine ); 
 					console.log( "Destroy active" );
+					break;
+
+				case "revenge":
+					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
+					rStory.push( lPlotLine ); 
+					console.log( "Revenge active" );
 					break;
 
 				case "witch":
@@ -469,5 +491,5 @@ function TSimpleStoryCreator() {
 		rHeroList.push( { Article: lArticle, Name: aName, Gender: lGender } );
 	}
 
-	this.NewStory(); // Creatinng a story in advance
+	this.NewStory( "revenge" ); // Creatinng a story in advance
 }
