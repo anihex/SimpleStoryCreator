@@ -53,13 +53,13 @@ function TSimpleStoryCreator() {
 		"Once Upon a Time",
 		"In a land far away",
 		"Before you were born",
-		"In a little village",
-		""
+		"In a little village"
 	];
 
 	// List of possible endings for the story
 	var rPlotEndList = [
 		"flee",
+		"kill",
 		"kill"
 	];
 
@@ -310,13 +310,14 @@ function TSimpleStoryCreator() {
 		var lPlotMode       = rRandom( 1, rPlotList.length ) - 1;
 		var lIntroID        = rRandom( 1, rIntroList.length ) - 1;
 		var lSubIntro       = rRandom( 1, 99 );
-		var lPlotEndMode    = rRandom( 1, rPlotEndList.length ) - 1;
+		var lPlotEndMode    = rPlotEndList[ rRandom( 1, rPlotEndList.length ) - 1 ];
 		var lHeroID         = rRandom( 1, rHeroList.length ) - 1;
 		var lVillainID      = rRandom( 1, rVillainList.length ) - 1;
 
 		var lKillWay        = rRandom( 1, rKillList.length ) - 1; // Plot-End: kill
-		var lFleeWay        = rRandom( 1, rFleeList.length ) - 1; // Plot-End: flee
+		var lFlee           = rFleeList[ rRandom( 1, rFleeList.length ) - 1 ]; // Plot-End: flee
 		var lDayMode        = rRandom( 1, rOneDayList.length ) - 1;
+		var lFinal          = rFinalMoment[ rRandom( 1, rFinalMoment.length ) - 1 ];
 
 		var lKidnapWay      = rRandom( 1, rKidnapList.length ) - 1;  // Plot: Kidnap
 		var lDestroyWay     = rRandom( 1, rDestroyList.length ) - 1; // Plot: Destroy
@@ -372,6 +373,7 @@ function TSimpleStoryCreator() {
 				lPlot.push("entwitch");
 				break;
 		}
+		lPlot.push( lPlotEndMode );
 			
 
 		// Adding the intro
@@ -420,8 +422,8 @@ function TSimpleStoryCreator() {
 					break;
 
 				case "flee":
-					var lPlotLine = sprintf("%s %s the %s.", lHeroGender, lCheatWord, lVillainName);
-					//if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
+					var lPlotLine = sprintf("%s %s %s.", lFinal, lHeroGender.toLowerCase(), lFlee );
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
 					rStory.push( lPlotLine ); 
 					console.log( "Flee active" );
 					break;
