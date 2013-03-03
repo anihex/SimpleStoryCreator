@@ -60,3 +60,4 @@ Credits
 * Original project: Plot Narrator ( https://github.com/kddekadenz/PlotNarrator ) (C) 2013 by Rick Hoppmann aka kddekadenz
 * sprintf implementation: (C) 2006 by Naden Badalgogtapeh ( http://www.naden.de/blog/javascript-printf )
 * JavaScript Version: (C) 2006 by anihex ( https://github.com/anihex )
+* New rRandom implementation: (C) 2006 by Naden Badalgogtapeh ( http://www.naden.de/blog/zufallszahlen-in-javascript-mit-mathrandom ), 2008 by by batzee and  2012 by MHN

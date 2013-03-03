@@ -300,10 +300,35 @@ function TSimpleStoryCreator() {
 	//              - aMin (Integer); The lowest possible number
 	//              - aMax (Integer); The highest possible number
 	// Discription: Generates a random number and returning it.
+	// Disclaimer : Exchanged this function with a more reliable solution.
+	//              The new version is taken from
+	//              http://www.naden.de/blog/zufallszahlen-in-javascript-mit-mathrandom
+	//              Authors are:
+	//              - (C) 2006 by Naden Badalgogtapeh
+	//              - (C) 2008 by batzee
+	//              - (C) 2012 by MHN
 	function rRandom(aMin, aMax) {
-		lMin = Math.floor( parseInt( aMin ));
-		lMax = Math.floor(parseInt(aMax));
-		return Math.floor(Math.random() * (lMax-lMin)) + lMin;
+		lMin = Math.floor( parseInt( aMin ) );
+		lMax = Math.floor( parseInt( aMax ) );
+
+		if ( lMin > lMax) {
+			return rRandom( lMax, lMin ); // This is a suggestion from MHN
+		}
+ 
+		if ( lMin == lMax ) {
+			return lMin;
+		}
+ 
+		var lRandomNumber;
+ 
+		// Prevent that we go over the destined area
+		do {
+			lRandomNumber = Math.random();
+		}
+		while( lRandomNumber == 1.0 );
+		// End of prevention
+ 
+		return lMin + parseInt( lRandomNumber * ( lMax-lMin + 1 ) );
 	}
 
 
@@ -321,6 +346,8 @@ function TSimpleStoryCreator() {
 		var lPlotEndMode            = rPlotEndList[ rRandom( 1, rPlotEndList.length ) - 1 ];
 		var lHeroID                 = rRandom( 1, rHeroList.length ) - 1;
 		var lVillainID              = rRandom( 1, rVillainList.length ) - 1;
+
+		console.log( lHeroID );
 
 		var lKill                   = rKillList[ rRandom( 1, rKillList.length ) - 1 ]; // Plot-End: kill
 		var lWeapon                 = rWeaponList[ rRandom( 1, rWeaponList.length ) - 1 ]; // Plot-End: kill_weapon
