@@ -87,10 +87,10 @@ function TSimpleStoryCreator() {
 
 	// List of all adjectives of the Hero
 	var rHeroMainAdjectiveList = [
-		"brave",
-		"wealthy",
-		"rich",
-		"poor"
+		{ Article: "a", Word: "brave" },
+		{ Article: "a", Word: "wealthy" },
+		{ Article: "a", Word: "rich" },
+		{ Article: "a", Word: "poor" }
 	];
 
 	var rHeroSecondaryAdjectiveList = [
@@ -446,7 +446,7 @@ function TSimpleStoryCreator() {
 
 		// Adding the intro
 		var lPlotLine = sprintf("%s there lived %s %s.", lIntro, lHeroArticle, lHeroName);
-		if ( lSubIntro > 33  ) lPlotLine = sprintf("%s there was %s %s %s.", lIntro, lHeroArticle, lHeroMainAdjective, lHeroName );
+		if ( lSubIntro > 33  ) lPlotLine = sprintf("%s there was %s %s %s.", lIntro, lHeroMainAdjective.Article, lHeroMainAdjective.Word, lHeroName );
 		if ( lSubIntro > 66  ) lPlotLine = sprintf("%s there was %s %s who was %s.", lIntro, lHeroArticle, lHeroName, lHeroSecondaryAdjective );
 		rStory.push( lPlotLine ); 
 
