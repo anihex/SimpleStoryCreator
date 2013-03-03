@@ -61,7 +61,7 @@ function TSimpleStoryCreator() {
 	var rPlotEndList = [
 		"flee",
 		"kill",
-		"kill"
+		"kill_weapon"
 	];
 
 	// List of all good people (read: Heros)
@@ -252,7 +252,9 @@ function TSimpleStoryCreator() {
 
 	// List of possible weapons
 	var rWeaponList = [
-		"bastard sword"
+		"bastard sword",
+		"dagger",
+		"shovel"
 	];
 
 
@@ -321,6 +323,7 @@ function TSimpleStoryCreator() {
 		var lVillainID              = rRandom( 1, rVillainList.length ) - 1;
 
 		var lKill                   = rKillList[ rRandom( 1, rKillList.length ) - 1 ]; // Plot-End: kill
+		var lWeapon                 = rWeaponList[ rRandom( 1, rWeaponList.length ) - 1 ]; // Plot-End: kill_weapon
 		var lFlee                   = rFleeList[ rRandom( 1, rFleeList.length ) - 1 ]; // Plot-End: flee
 		var lDayMode                = rRandom( 1, rOneDayList.length ) - 1;
 		var lFinal                  = rFinalMoment[ rRandom( 1, rFinalMoment.length ) - 1 ];
@@ -334,6 +337,7 @@ function TSimpleStoryCreator() {
 		var lRelativeID             = rRandom( 1, rRelativeList.length ) - 1;      // Plot: Revenge
 
 		var lHeroGender             = rHeroList[lHeroID].Gender;
+		var lHeroAlternateGender;
 		var lHeroName               = rHeroList[lHeroID].Name;
 		var lHeroArticle            = rHeroList[lHeroID].Article;
 		var lHeroMainAdjective      = rHeroMainAdjectiveList[ rRandom( 1, rHeroMainAdjectiveList.length ) - 1 ];
@@ -371,6 +375,8 @@ function TSimpleStoryCreator() {
 				lHeroSecondaryAdjective = lHeroSecondary.Male;
 				break;
 		}
+		lHeroAlternateGender = "his";
+		if ( lHeroGender.toLowerCase() == "she" ) lHeroAlternateGender = "her";
 
 
 		// Preparing the story and the plot
@@ -469,6 +475,12 @@ function TSimpleStoryCreator() {
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
 					rStory.push( lPlotLine ); 
 					console.log( "Kill active" );
+					break;
+
+				case "kill_weapon":
+					var lPlotLine = sprintf("%s %s %s the %s with %s %s.", lFinal, lHeroGender.toLowerCase(), lKill, lVillainName, lHeroAlternateGender, lWeapon );
+					rStory.push( lPlotLine ); 
+					console.log( "Kill_weapon active" );
 					break;
 			};
 		}
