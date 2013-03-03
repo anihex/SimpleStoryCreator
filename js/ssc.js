@@ -250,6 +250,11 @@ function TSimpleStoryCreator() {
 		"helper"
 	];
 
+	// List of possible weapons
+	var rWeaponList = [
+		"bastard sword"
+	];
+
 
 	var rStory = []; // Stores the actual story and is returned by GetStoryText
 
