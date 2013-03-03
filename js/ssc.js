@@ -254,7 +254,11 @@ function TSimpleStoryCreator() {
 	var rWeaponList = [
 		"bastard sword",
 		"dagger",
-		"shovel"
+		"shovel",
+		"rifle",
+		"magnum",
+		"UZI",
+		"AK-47"
 	];
 
 
@@ -372,13 +376,13 @@ function TSimpleStoryCreator() {
 		var lHeroSecondary          = rHeroSecondaryAdjectiveList[ rRandom( 1, rHeroSecondaryAdjectiveList.length ) - 1 ];
 		var lCheatWord              = rCheatList[ rRandom( 1, rCheatList.length ) - 1 ];
 		
-		var lVillainName    = rVillainList[lHeroID].Name;
-		var lVillainArticle = rVillainList[lHeroID].Article;
+		var lVillainName            = rVillainList[lHeroID].Name;
+		var lVillainArticle         = rVillainList[lHeroID].Article;
 
-		if ( aStoryMode == "destroy" ) lPlotMode = "destroy";
-		if ( aStoryMode == "kidnap" ) lPlotMode = "kidnap";
+		if ( aStoryMode == "destroy" )     lPlotMode = "destroy";
+		if ( aStoryMode == "kidnap" )      lPlotMode = "kidnap";
 		if ( aStoryMode == "mindcontrol" ) lPlotMode = "witch";
-		if ( aStoryMode == "revenge" ) lPlotMode = "revenge";
+		if ( aStoryMode == "revenge" )     lPlotMode = "revenge";
 
 		console.log( aStoryMode );
 		console.log( this.NewStory.arguments );
@@ -446,34 +450,22 @@ function TSimpleStoryCreator() {
 		if ( lSubIntro > 66  ) lPlotLine = sprintf("%s there was %s %s who was %s.", lIntro, lHeroArticle, lHeroName, lHeroSecondaryAdjective );
 		rStory.push( lPlotLine ); 
 
+		// Adding the rest of the plot
 		for (var lIndex = 0; lIndex < lPlot.length; lIndex++) {
 			console.log( lPlot[ lIndex ] ); 
 
 			switch ( lPlot[ lIndex ] ) {
-				case "kidnap":
-					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
-					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
+				case "cheat":
+					var lPlotLine = sprintf("%s %s the %s.", lHeroGender, lCheatWord, lVillainName);
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("The %s %s the %s.", lHeroName, lCheatWord, lVillainName);
 					rStory.push( lPlotLine ); 
-					console.log( "Kidnap active" );
+					console.log( "Cheat active" );
 					break;
 
 				case "destroy":
 					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, rDestroyList[ lDestroyWay ], rDestroyObjectList[ lObjectID ], lHeroName );
 					rStory.push( lPlotLine ); 
 					console.log( "Destroy active" );
-					break;
-
-				case "revenge":
-					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
-					rStory.push( lPlotLine ); 
-					console.log( "Revenge active" );
-					break;
-
-				case "witch":
-					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
-					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
-					rStory.push( lPlotLine ); 
-					console.log( "Witch active" );
 					break;
 
 				case "entwitch":
@@ -483,18 +475,18 @@ function TSimpleStoryCreator() {
 					console.log( "Entwisch active" );
 					break;
 
-				case "cheat":
-					var lPlotLine = sprintf("%s %s the %s.", lHeroGender, lCheatWord, lVillainName);
-					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("The %s the %s.", lCheatWord, lVillainName);
-					rStory.push( lPlotLine ); 
-					console.log( "Cheat active" );
-					break;
-
 				case "flee":
 					var lPlotLine = sprintf("%s %s %s.", lFinal, lHeroGender.toLowerCase(), lFlee );
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
 					rStory.push( lPlotLine ); 
 					console.log( "Flee active" );
+					break;
+
+				case "kidnap":
+					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
+					rStory.push( lPlotLine ); 
+					console.log( "Kidnap active" );
 					break;
 
 				case "kill":
@@ -508,6 +500,19 @@ function TSimpleStoryCreator() {
 					var lPlotLine = sprintf("%s %s %s the %s with %s %s.", lFinal, lHeroGender.toLowerCase(), lKill, lVillainName, lHeroAlternateGender, lWeapon );
 					rStory.push( lPlotLine ); 
 					console.log( "Kill_weapon active" );
+					break;
+
+				case "revenge":
+					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
+					rStory.push( lPlotLine ); 
+					console.log( "Revenge active" );
+					break;
+
+				case "witch":
+					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
+					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
+					rStory.push( lPlotLine ); 
+					console.log( "Witch active" );
 					break;
 			};
 		}
