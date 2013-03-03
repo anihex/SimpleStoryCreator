@@ -420,9 +420,9 @@ function TSimpleStoryCreator() {
 					break;
 
 				case "flee":
-					//var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
+					var lPlotLine = sprintf("%s %s the %s.", lHeroGender, lCheatWord, lVillainName);
 					//if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
-					//rStory.push( lPlotLine ); 
+					rStory.push( lPlotLine ); 
 					console.log( "Flee active" );
 					break;
 

@@ -12,6 +12,11 @@
 			height: 300px;
 			border: 1px solid black;
 		}
+
+		button {
+			display: block;
+			margin: 0 auto;
+		}
 	</style>
 </head>
 <body>
@@ -21,12 +26,17 @@
 		var MyStory = new TSimpleStoryCreator();
 		var MyLog = document.getElementById("log");
 
-		var RealStory = MyStory.GetStoryText();
-		MyLog.value = "";
-		for ( var lIndex = 0; lIndex < RealStory.length; lIndex++ ) {
-			MyLog.value += RealStory[ lIndex ] + "\n";
-		}
+		NewStory();
 
+		function NewStory() {
+			MyStory.NewStory();
+			var RealStory = MyStory.GetStoryText();
+			MyLog.value = "";
+			for ( var lIndex = 0; lIndex < RealStory.length; lIndex++ ) {
+				MyLog.value += RealStory[ lIndex ] + "\n";
+			}
+		}
 	</script>
+	<button onclick="javascript:NewStory();">New Story</button>
 </body>
 </html>
