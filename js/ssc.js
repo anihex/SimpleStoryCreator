@@ -267,7 +267,7 @@ function TSimpleStoryCreator() {
 	// Name       : sprintf
 	// Parameters : At least 2 parameters are required. 1 as the actual message, and another for the content.
 	//              More values have to be added in case of more placeholders.
-	// Discription: This function replaces placeholders acording to their type. This way it's possible
+	// Description: This function replaces placeholders acording to their type. This way it's possible
 	//              to format a string the way the user wants it.
 	// Disclaimer : This function is (C) 2006 by Naden Badalgogtapeh. The source can be found at
 	//              http://www.naden.de/blog/javascript-printf
@@ -303,7 +303,7 @@ function TSimpleStoryCreator() {
 	// Parameters : This function requires 2 parameters:
 	//              - aMin (Integer); The lowest possible number
 	//              - aMax (Integer); The highest possible number
-	// Discription: Generates a random number and returning it.
+	// Description: Generates a random number and returning it.
 	// Disclaimer : Exchanged this function with a more reliable solution.
 	//              The new version is taken from
 	//              http://www.naden.de/blog/zufallszahlen-in-javascript-mit-mathrandom
@@ -337,8 +337,9 @@ function TSimpleStoryCreator() {
 
 
 	// Name       : NewStory
-	// Parameters : None
-	// Discription: Creates a plot and builds a story upon the plot.
+	// Parameters : aStoryMode (optional; string) - In case you want
+	//              a specific kind of story. Can be ignored otherwise.
+	// Description: Creates a plot and builds a story upon the plot.
 	//              Uses a random hero and a random villain for this.
 	//              The story is stored in the private variable rStory and can
 	//              be called by using the GetStoryText-routine
@@ -350,8 +351,6 @@ function TSimpleStoryCreator() {
 		var lPlotEndMode            = rPlotEndList[ rRandom( 1, rPlotEndList.length ) - 1 ];
 		var lHeroID                 = rRandom( 1, rHeroList.length ) - 1;
 		var lVillainID              = rRandom( 1, rVillainList.length ) - 1;
-
-		console.log( lHeroID );
 
 		var lKill                   = rKillList[ rRandom( 1, rKillList.length ) - 1 ]; // Plot-End: kill
 		var lWeapon                 = rWeaponList[ rRandom( 1, rWeaponList.length ) - 1 ]; // Plot-End: kill_weapon
@@ -383,9 +382,6 @@ function TSimpleStoryCreator() {
 		if ( aStoryMode == "kidnap" )      lPlotMode = "kidnap";
 		if ( aStoryMode == "mindcontrol" ) lPlotMode = "witch";
 		if ( aStoryMode == "revenge" )     lPlotMode = "revenge";
-
-		console.log( aStoryMode );
-		console.log( this.NewStory.arguments );
 
 
 		switch ( lHeroGender ) {
@@ -452,67 +448,57 @@ function TSimpleStoryCreator() {
 
 		// Adding the rest of the plot
 		for (var lIndex = 0; lIndex < lPlot.length; lIndex++) {
-			console.log( lPlot[ lIndex ] ); 
 
 			switch ( lPlot[ lIndex ] ) {
 				case "cheat":
 					var lPlotLine = sprintf("%s %s the %s.", lHeroGender, lCheatWord, lVillainName);
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("The %s %s the %s.", lHeroName, lCheatWord, lVillainName);
 					rStory.push( lPlotLine ); 
-					console.log( "Cheat active" );
 					break;
 
 				case "destroy":
 					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, rDestroyList[ lDestroyWay ], rDestroyObjectList[ lObjectID ], lHeroName );
 					rStory.push( lPlotLine ); 
-					console.log( "Destroy active" );
 					break;
 
 				case "entwitch":
 					var lPlotLine = sprintf("The %s %s the %s.", lVillainName, lWitchEnd, lHeroName);
 					//if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
 					rStory.push( lPlotLine ); 
-					console.log( "Entwisch active" );
 					break;
 
 				case "flee":
 					var lPlotLine = sprintf("%s %s %s.", lFinal, lHeroGender.toLowerCase(), lFlee );
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
 					rStory.push( lPlotLine ); 
-					console.log( "Flee active" );
 					break;
 
 				case "kidnap":
 					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rKidnapList[ lKidnapWay ], lVillainArticle, lVillainName);
 					rStory.push( lPlotLine ); 
-					console.log( "Kidnap active" );
 					break;
 
 				case "kill":
 					var lPlotLine = sprintf("%s %s %s the %s.", lFinal, lHeroGender.toLowerCase(), lKill, lVillainName );
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s %s.", lFinal, lHeroName, lFlee );
 					rStory.push( lPlotLine ); 
-					console.log( "Kill active" );
 					break;
 
 				case "kill_weapon":
 					var lPlotLine = sprintf("%s %s %s the %s with %s %s.", lFinal, lHeroGender.toLowerCase(), lKill, lVillainName, lHeroAlternateGender, lWeapon );
 					rStory.push( lPlotLine ); 
-					console.log( "Kill_weapon active" );
 					break;
 
 				case "revenge":
 					var lPlotLine = sprintf("%s %s %s %s the %s of the %s.", rOneDayList[ lDayMode ], lVillainArticle, lVillainName, lKill, rRelativeList[ lRelativeID ], lHeroName );
 					rStory.push( lPlotLine ); 
-					console.log( "Revenge active" );
 					break;
 
 				case "witch":
 					var lPlotLine = sprintf("%s %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroGender.toLowerCase(), rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
 					if ( rRandom( 1, 100 ) > 50  ) lPlotLine = sprintf("%s the %s was %s by %s %s.", rOneDayList[ lDayMode ], lHeroName, rWitchList[ lWitchWay ], lVillainArticle, lVillainName);
 					rStory.push( lPlotLine ); 
-					console.log( "Witch active" );
 					break;
 			};
 		}
@@ -520,7 +506,7 @@ function TSimpleStoryCreator() {
 
 	// Name       : GetStoryText
 	// Parameters : None
-	// Discription: Returns the stored story as an array where each line is an entry
+	// Description: Returns the stored story as an array where each line is an entry
 	this.GetStoryText = function () {
 		return rStory;
 	}
@@ -531,7 +517,7 @@ function TSimpleStoryCreator() {
 	//              - aArticle (string); The article of the hero; Can either be "a", "an", "the"or ""
 	//              - aName (string); the nma or job of the hero
 	//              - aGender (string); the gender of the hero; Can either be "male", "female" or "both"
-	// Discription: Adds a new possible hero to the list of heros. The user can define the name/job, the gender and an article
+	// Description: Adds a new possible hero to the list of heros. The user can define the name/job, the gender and an article
 	//              which is to be used with the name.
 	this.AddHero = function (aArticle, aName) {
 		var lArticle = aArticle.toLowerCase();
