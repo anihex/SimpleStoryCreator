@@ -36,7 +36,7 @@
 // - "Classes" get a big "T" as the first letter
 // - "Private Variables and routines" get a small "r" as the first letter
 // - "Local Variables" get a small "l" as the first letter
-function TSimpleStoryCreator() {
+function SimpleStoryCreator() {
 	// ************************************************************
 	// *                    All required lists                    *
 	// ************************************************************
@@ -343,7 +343,7 @@ function TSimpleStoryCreator() {
 	//              Uses a random hero and a random villain for this.
 	//              The story is stored in the private variable rStory and can
 	//              be called by using the GetStoryText-routine
-	this.NewStory = function ( aStoryMode ) {
+	this.createStory = function ( aStoryMode ) {
 		// General information about the story
 		var lPlotMode               = rPlotList[ rRandom( 1, rPlotList.length ) - 1 ];
 		var lIntro                  = rIntroList[ rRandom( 1, rIntroList.length ) - 1 ];
@@ -507,7 +507,7 @@ function TSimpleStoryCreator() {
 	// Name       : GetStoryText
 	// Parameters : None
 	// Description: Returns the stored story as an array where each line is an entry
-	this.GetStoryText = function () {
+	this.getStoryText = function () {
 		return rStory;
 	}
 
@@ -519,12 +519,12 @@ function TSimpleStoryCreator() {
 	//              - aGender (string); the gender of the hero; Can either be "male", "female" or "both"
 	// Description: Adds a new possible hero to the list of heros. The user can define the name/job, the gender and an article
 	//              which is to be used with the name.
-	this.AddHero = function (aArticle, aName) {
+	this.addHero = function (aArticle, aName) {
 		var lArticle = aArticle.toLowerCase();
 		var lGender = aGender.toLowerCase();
 
 		rHeroList.push( { Article: lArticle, Name: aName, Gender: lGender } );
 	}
 
-	this.NewStory( "revenge" ); // Creatinng a story in advance
+	this.createStory(); // Creatinng a story in advance
 }

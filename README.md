@@ -10,7 +10,7 @@ Just call the "new" operator and it's all done.
 
 Example:
 ```javascript
-  var MyStory = new TSimpleStoryCreator();
+  var MyStory = new SimpleStoryCreator();
 ```
 
 This creates a new instance of TSimpleStoryCreator and it also
@@ -19,7 +19,7 @@ GetStoryText.
 
 Example:
 ```javascript
-  MyStory.GetStoryText();
+  MyStory.getStoryText();
 ```
 
 This returns an array of strings containing the story.
@@ -28,7 +28,7 @@ a new story. This can easily achived by calling NewStory.
 
 Example:
 ```javascript
-  MyStory.NewStory();
+  MyStory.createStory();
 ```
 
 This way you get a new story that (hopefully) fits your needs/taste
@@ -42,7 +42,7 @@ Currently these are the possible plots:
 
 Example:
 ```javascript
-  MyStory.NewStory( "revenge" );
+  MyStory.createStory( "revenge" );
 ```
 
 The story would be something like this:
@@ -59,5 +59,5 @@ Credits
 * Original idea: (C) 2013 by Rick Hoppmann aka kddekadenz ( https://github.com/kddekadenz )
 * Original project: Plot Narrator ( https://github.com/kddekadenz/PlotNarrator ) (C) 2013 by Rick Hoppmann aka kddekadenz
 * sprintf implementation: (C) 2006 by Naden Badalgogtapeh ( http://www.naden.de/blog/javascript-printf )
-* JavaScript Version: (C) 2006 by anihex ( https://github.com/anihex )
+* JavaScript Version: (C) 2013-2014 by anihex ( https://github.com/anihex )
 * New rRandom implementation: (C) 2006 by Naden Badalgogtapeh ( http://www.naden.de/blog/zufallszahlen-in-javascript-mit-mathrandom ), 2008 by by batzee and  2012 by MHN

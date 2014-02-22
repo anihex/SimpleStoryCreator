@@ -47,14 +47,14 @@
 
 	<script src="js/ssc.js"></script>
 	<script>
-		var MyStory = new TSimpleStoryCreator();
+		var MyStory = new SimpleStoryCreator();
 		var MyLog = document.getElementById("log");
 
 		NewStory();
 
 		function NewStory() {
-			MyStory.NewStory("revenge");
-			var RealStory = MyStory.GetStoryText();
+			MyStory.createStory("revenge");
+			var RealStory = MyStory.getStoryText();
 			MyLog.value = "";
 			for ( var lIndex = 0; lIndex < RealStory.length; lIndex++ ) {
 				MyLog.value += RealStory[ lIndex ] + "\n";
